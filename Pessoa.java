@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class Pessoa {
     private String nomeCivil;
     private String nomeSocial;
@@ -9,12 +11,11 @@ public abstract class Pessoa {
     private Endereco endereco;
 
     public Pessoa(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
-        String nomeDaMae, String naturalidade, String telefone, Endereco endereco) {
+                  String nomeDaMae, String naturalidade, String telefone, Endereco endereco) {
         this.nomeCivil = nomeCivil;
-        if (nomeSocial.isEmpty()) {
+        this.nomeSocial = nomeSocial;
+        if (Objects.isNull(nomeSocial) || nomeSocial.isBlank()) {
             this.nomeSocial = nomeCivil;
-        } else {
-            this.nomeSocial = nomeSocial;
         }
         this.cpf = cpf;
         this.nomeDoPai = nomeDoPai;
