@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.Objects;
 
 public class Contrato {
-    private String numContrato;
-    private LocalDate inicio;
-    private LocalDate fim;
-    private BigDecimal valor;
+    private final String numContrato;
+    private final LocalDate inicio;
+    private final LocalDate fim;
+    private final BigDecimal valor;
 
     // TODO: lidar com possiveis repeticoes, usando Set<> ou outros metodos
     private List<Veiculo> veiculosAssociados = new ArrayList<>();
     private List<Motorista> motoristasAssociados = new ArrayList<>();
 
     public Contrato(String numContrato, LocalDate inicio, LocalDate fim, BigDecimal valor) {
-        this.numContrato = numContrato;
-        this.inicio = inicio;
-        this.fim = fim;
-        this.valor = valor;
+        this.numContrato = Objects.requireNonNull(numContrato, "Número do contrato não pode ser nulo!");
+        this.inicio = Objects.requireNonNull(inicio, "Data de início não pode ser nula!");
+        this.fim = Objects.requireNonNull(fim, "Data de fim não pode ser nula!");
+        this.valor = Objects.requireNonNull(valor, "Valor não pode ser nulo!");
     }
 
     /**
