@@ -1,3 +1,4 @@
+
 public class Motorista extends Pessoa {
     private CNH cnh;
     private TipoDeContrato tipoDeContrato;
