@@ -1,20 +1,21 @@
 import java.io.IOException;
 import java.time.Year;
+import java.util.Objects;
 
 public class Veiculo {
-    private String placa;
-    private Year ano;
-    private String modelo;
-    private int capacidade;
+    private final String placa;
+    private final Year ano;
+    private final String modelo;
+    private final int capacidade;
     private String numeroDeContrato;
     private TipoVeiculo tipo;
 
     private Veiculo(String placa, Year ano, String modelo, int capacidade, String numeroDeContrato) {
-        this.placa = placa;
-        this.ano = ano;
-        this.modelo = modelo;
+        this.placa = Objects.requireNonNull(placa, "Placa nao pode ser nula!");
+        this.ano = Objects.requireNonNull(ano, "Ano nao pode ser nulo!");
+        this.modelo = Objects.requireNonNull(modelo, "Modelo nao pode ser nulo!");
         this.capacidade = capacidade;
-        this.numeroDeContrato = numeroDeContrato;
+        this.numeroDeContrato = Objects.requireNonNull(numeroDeContrato, "Número de contrato nao pode ser nulo!");
     }
 
     public static Veiculo novoVeiculoAlugado(String placa, Year ano, String modelo, int capacidade, String numeroDeContrato) {
@@ -24,7 +25,7 @@ public class Veiculo {
     }
 
     public static Veiculo novoVeiculoProprio(String placa, Year ano, String modelo, int capacidade) {
-        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade, modelo);
+        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade, "");
         veiculo.tipo = TipoVeiculo.PROPRIO;
         return veiculo;
     }
@@ -38,7 +39,7 @@ public class Veiculo {
 
     public void setNumeroDeContrato(String numeroDeContrato) throws IOException {
         if (this.tipo == TipoVeiculo.PROPRIO) {
-            throw new IllegalArgumentException("Método inválido, o veículo deve ser alugado para estar associado a um contrato!");
+            throw new IllegalStateException("Método inválido, o veículo deve ser alugado para estar associado a um contrato!");
         }
         this.numeroDeContrato = numeroDeContrato;
     }
