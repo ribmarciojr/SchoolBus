@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Escola {
@@ -5,6 +6,7 @@ public class Escola {
     private String cnpj;
     private String telefone;
     private Endereco endereco;
+    private ArrayList<Aluno> alunos = new ArrayList<>();
 
     public Escola(String nome, String cnpj, String telefone) {
         this.nome = Objects.requireNonNull(nome, "O nome da escola nao pode ser nulo");
@@ -14,5 +16,9 @@ public class Escola {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = Objects.requireNonNull(endereco, "O endereco da escola nao pode ser nulo");
+    }
+
+    public void matriculaAluno(Aluno aluno){
+        alunos.add(aluno);
     }
 }
