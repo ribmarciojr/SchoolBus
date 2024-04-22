@@ -43,4 +43,17 @@ public class Veiculo {
         }
         this.numeroDeContrato = numeroDeContrato;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Veiculo veiculo = (Veiculo) o;
+        return capacidade == veiculo.capacidade && Objects.equals(placa, veiculo.placa) && Objects.equals(ano, veiculo.ano) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(numeroDeContrato, veiculo.numeroDeContrato) && tipo == veiculo.tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placa, ano, modelo, capacidade, numeroDeContrato, tipo);
+    }
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Objects;
 
 public class Motorista extends Pessoa {
     private CNH cnh;
@@ -6,8 +7,8 @@ public class Motorista extends Pessoa {
     private String numeroDeContrato = "";
 
     private Motorista(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
-                      String nomeDaMae, String naturalidade, String telefone, Endereco endereco, String numeroCNH,
-                      CategoriaCNH categoriaCNH) {
+                      String nomeDaMae, String naturalidade, String telefone, Endereco endereco,
+                      String numeroCNH, CategoriaCNH categoriaCNH) {
         super(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, telefone, endereco);
         this.cnh = new CNH(numeroCNH, categoriaCNH);
     }
@@ -15,9 +16,10 @@ public class Motorista extends Pessoa {
     /**
      * @apiNote "Em sendo terceirizado, o motorista também deve estar ligado a um contrato."
      */
-    public static Motorista novoMotoristaTerceirizado(String nomeCivil, String nomeSocial,
-                                                      String cpf, String nomeDoPai, String nomeDaMae, String naturalidade, String telefone,
-                                                      Endereco endereco, String numeroDeContrato, String numeroCNH, CategoriaCNH categoriaCNH) {
+    public static Motorista novoMotoristaTerceirizado(String nomeCivil, String nomeSocial, String cpf,
+                                                      String nomeDoPai, String nomeDaMae, String naturalidade,
+                                                      String telefone, Endereco endereco, String numeroDeContrato,
+                                                      String numeroCNH, CategoriaCNH categoriaCNH) {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, telefone, endereco, numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.TERCEIRIZADO;
         m.numeroDeContrato = numeroDeContrato;
@@ -25,8 +27,8 @@ public class Motorista extends Pessoa {
     }
 
     public static Motorista novoMotoristaSecretaria(String nomeCivil, String nomeSocial, String cpf,
-                                                    String nomeDoPai, String nomeDaMae, String naturalidade, String telefone, Endereco endereco,
-                                                    String numeroCNH, CategoriaCNH categoriaCNH) {
+                                                    String nomeDoPai, String nomeDaMae, String naturalidade,
+                                                    String telefone, Endereco endereco, String numeroCNH, CategoriaCNH categoriaCNH) {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, telefone, endereco, numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.SECRETARIA;
         return m;
@@ -44,5 +46,18 @@ public class Motorista extends Pessoa {
             throw new IllegalArgumentException("Método inválido: o motorista deve ser terceirizado para estar associado a um contrato!");
         }
         this.numeroDeContrato = numeroDeContrato;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Motorista motorista = (Motorista) o;
+        return Objects.equals(cnh, motorista.cnh) && tipoDeContrato == motorista.tipoDeContrato && Objects.equals(numeroDeContrato, motorista.numeroDeContrato);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cnh, tipoDeContrato, numeroDeContrato);
     }
 }
