@@ -1,8 +1,6 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Contrato {
     private final String numContrato;
@@ -10,9 +8,8 @@ public class Contrato {
     private final LocalDate fim;
     private final BigDecimal valor;
 
-    // TODO: lidar com possiveis repeticoes, usando Set<> ou outros metodos
-    private List<Veiculo> veiculosAssociados = new ArrayList<>();
-    private List<Motorista> motoristasAssociados = new ArrayList<>();
+    private Set<Veiculo> veiculosAssociados = new HashSet<>();
+    private Set<Motorista> motoristasAssociados = new HashSet<>();
 
     public Contrato(String numContrato, LocalDate inicio, LocalDate fim, BigDecimal valor) {
         this.numContrato = Objects.requireNonNull(numContrato, "Número do contrato não pode ser nulo!");
