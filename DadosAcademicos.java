@@ -3,12 +3,19 @@ public class DadosAcademicos {
     private String serie;
     private Escola escola;
     private Turno turno;
-    
+
     public DadosAcademicos(String matricula, String serie, Escola escola, Turno turno) {
         this.matricula = matricula;
         this.serie = serie;
         this.escola = escola;
         this.turno = turno;
     }
- 
+
+    public String matricula() {
+        return matricula;
+    }
+
+    public String serie() {
+        return serie;
+    }
 }

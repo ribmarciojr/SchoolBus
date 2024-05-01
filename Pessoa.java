@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public abstract class Pessoa {
@@ -27,8 +26,16 @@ public abstract class Pessoa {
         this.endereco = Objects.requireNonNull(endereco, "O endereco nao pode ser nulo");
     }
 
-    public Pessoa(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai, String nomeDaMae, String naturalidade, String telefone, Endereco endereco, LocalDate dataDeNascimento2) {
+    public Pessoa(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai, String nomeDaMae, String naturalidade, String telefone, Endereco endereco, LocalDate dataDeNascimento) {
         this(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, telefone, endereco);
-        this.dataDeNascimento = Objects.requireNonNull(dataDeNascimento2, "A data de nascimento não pode ser nula");
+        this.dataDeNascimento = Objects.requireNonNull(dataDeNascimento, "A data de nascimento não pode ser nula");
+    }
+
+    public String nomeSocial() {
+        return nomeSocial;
+    }
+
+    public String cpf() {
+        return cpf;
     }
 }
