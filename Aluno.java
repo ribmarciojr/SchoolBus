@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Aluno extends Pessoa {
     private DadosAcademicos dadosAcademicos;
-    private String rota;
+    private String rota ;
 
     public Aluno(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai, String nomeDaMae,
                  String naturalidade, String telefone, Endereco endereco, LocalDate dataDeNascimento,
