@@ -59,4 +59,8 @@ public class Contrato {
     public boolean removeMotorista(Motorista motorista) {
         return this.motoristasAssociados.remove(motorista);
     }
+
+    public String getNumContrato(){
+        return this.numContrato;
+    }
 }
