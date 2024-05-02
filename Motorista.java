@@ -1,12 +1,14 @@
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Motorista extends PessoaFisica {
     private CNH cnh;
     private TipoDeContrato tipoDeContrato;
-    private Contrato contrato;
+    private Set<Contrato> contratos = new HashSet<>();;
 
     private Motorista(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
             String nomeDaMae, String naturalidade, LocalDate dataDeNascimento, String telefone, Endereco endereco,
@@ -21,14 +23,12 @@ public class Motorista extends PessoaFisica {
      */
     public static Motorista novoMotoristaTerceirizado(String nomeCivil, String nomeSocial, String cpf,
             String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
-            String telefone, Endereco endereco, String numContrato,
-            LocalDate inicio,
-            LocalDate fim,
-            BigDecimal valor,
+            String telefone, Endereco endereco, Contrato contrato,
             String numeroCNH, CategoriaCNH categoriaCNH) {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco,
                 numeroCNH, categoriaCNH);
-        m.contrato = new Contrato(numContrato, inicio, fim, valor);
+        m.tipoDeContrato = TipoDeContrato.TERCEIRIZADO;
+        m.contratos.add(Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!"));
         return m;
     }
 
@@ -49,13 +49,14 @@ public class Motorista extends PessoaFisica {
         return tipoDeContrato;
     }
 
-    // public void setNumeroDeContrato(String numeroDeContrato) throws IOException {
-    //     if (this.tipoDeContrato == TipoDeContrato.SECRETARIA) {
-    //         throw new IllegalArgumentException(
-    //                 "Método inválido: o motorista deve ser terceirizado para estar associado a um contrato!");
-    //     }
-    //     this.numeroDeContrato = numeroDeContrato;
-    // }
+    public boolean addContrato(Contrato contrato) throws IOException {
+        if (tipoDeContrato == TipoDeContrato.SECRETARIA) {
+                     throw new IllegalArgumentException(
+                             "Metodo invalido: o motorista deve ser terceirizado para ser associado a um contrato!");
+        }
+                 return contratos.add(contrato);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -64,12 +65,11 @@ public class Motorista extends PessoaFisica {
         if (o == null || getClass() != o.getClass())
             return false;
         Motorista motorista = (Motorista) o;
-        return Objects.equals(cnh, motorista.cnh) && tipoDeContrato == motorista.tipoDeContrato
-                && Objects.equals(motorista.contrato.getNumContrato(), motorista.contrato.getNumContrato());
+        return Objects.equals(cnh, motorista.cnh) && tipoDeContrato == motorista.tipoDeContrato;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cnh, tipoDeContrato, this.contrato.getNumContrato());
+        return Objects.hash(cnh, tipoDeContrato);
     }
 }
