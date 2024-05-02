@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class Aluno extends Pessoa {
     private DadosAcademicos dadosAcademicos;
-    private PontoDeParada pontoDeParada; ;
+    private PontoDeParada pontoDeParada;
 
     public Aluno(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai, String nomeDaMae,
                  String naturalidade, String telefone, Endereco endereco, LocalDate dataDeNascimento,
