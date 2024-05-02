@@ -16,11 +16,12 @@ public class PontoDeParada {
         this.nome = Objects.requireNonNull(nome, "O nome do ponto de parada nao pode ser nulo");
         this.latitude = latitude;
         this.longitude = longitude;
-        this.id = totalPontos;
-        totalPontos++;
+        this.id = totalPontos++;
     }
 
-    public static void exibeTotalDePontos(){
+    public static void exibeTotalPontos(){
         System.out.println("Total de pontos: "+totalPontos);
     }
+
+    public int totalAlunos() {return alunos.size();}
 }
