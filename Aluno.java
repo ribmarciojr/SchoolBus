@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Aluno extends Pessoa {
+public class Aluno extends PessoaFisica {
     private DadosAcademicos dadosAcademicos;
     private PontoDeParada pontoDeParada;
 
@@ -9,7 +9,7 @@ public class Aluno extends Pessoa {
                  String naturalidade, String telefone, Endereco endereco, LocalDate dataDeNascimento,
                  String matricula, String serie, Escola escola,
                  Turno turno, PontoDeParada pontoDeParada) {
-        super(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, telefone, endereco, dataDeNascimento);
+        super(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco);
         this.dadosAcademicos = new DadosAcademicos(matricula, serie, escola, turno);
         this.pontoDeParada = Objects.requireNonNull(pontoDeParada, "O ponto de parada do aluno nao pode ser nulo");
     }
