@@ -7,25 +7,25 @@ public class Veiculo {
     private final Year ano;
     private final String modelo;
     private final int capacidade;
-    private String numeroDeContrato;
+    private Contrato contrato;
     private TipoVeiculo tipo;
 
-    private Veiculo(String placa, Year ano, String modelo, int capacidade, String numeroDeContrato) {
+    private Veiculo(String placa, Year ano, String modelo, int capacidade) {
         this.placa = Objects.requireNonNull(placa, "Placa nao pode ser nula!");
         this.ano = Objects.requireNonNull(ano, "Ano nao pode ser nulo!");
         this.modelo = Objects.requireNonNull(modelo, "Modelo nao pode ser nulo!");
         this.capacidade = capacidade;
-        this.numeroDeContrato = Objects.requireNonNull(numeroDeContrato, "Número de contrato nao pode ser nulo!");
     }
 
-    public static Veiculo novoVeiculoAlugado(String placa, Year ano, String modelo, int capacidade, String numeroDeContrato) {
-        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade, numeroDeContrato);
+    public static Veiculo novoVeiculoAlugado(String placa, Year ano, String modelo, int capacidade, Contrato contrato) {
+        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade);
+        veiculo.contrato = Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!");
         veiculo.tipo = TipoVeiculo.ALUGADO;
         return veiculo;
     }
 
     public static Veiculo novoVeiculoProprio(String placa, Year ano, String modelo, int capacidade) {
-        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade, "");
+        Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade);
         veiculo.tipo = TipoVeiculo.PROPRIO;
         return veiculo;
     }
@@ -37,11 +37,15 @@ public class Veiculo {
         return tipo;
     }
 
-    public void setNumeroDeContrato(String numeroDeContrato) throws IOException {
+    public void setContrato(Contrato novoContrato) throws IOException {
         if (this.tipo == TipoVeiculo.PROPRIO) {
-            throw new IllegalStateException("Método inválido, o veículo deve ser alugado para estar associado a um contrato!");
+            throw new IllegalStateException("Metodo invalido, o veiculo deve ser alugado para estar associado a um contrato!");
         }
-        this.numeroDeContrato = numeroDeContrato;
+
+        if (!this.contrato.equals(novoContrato) && novoContrato != null) {
+            this.contrato.removeVeiculo(this);
+            this.contrato = novoContrato;
+        }
     }
 
     @Override
@@ -49,11 +53,11 @@ public class Veiculo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return capacidade == veiculo.capacidade && Objects.equals(placa, veiculo.placa) && Objects.equals(ano, veiculo.ano) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(numeroDeContrato, veiculo.numeroDeContrato) && tipo == veiculo.tipo;
+        return capacidade == veiculo.capacidade && Objects.equals(placa, veiculo.placa) && Objects.equals(ano, veiculo.ano) && Objects.equals(modelo, veiculo.modelo) && tipo == veiculo.tipo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placa, ano, modelo, capacidade, numeroDeContrato, tipo);
+        return Objects.hash(placa, ano, modelo, capacidade, tipo);
     }
 }
