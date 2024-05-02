@@ -15,7 +15,7 @@ public abstract class PessoaFisica extends Pessoa{
         if (nomeSocial.isBlank()) {
             this.nomeSocial = this.nomeSocial;
         }
-        this.nomeDaMae = Objects.requireNonNull(nomeDaMae, "O nome da mae nao pode ser nulo!");;
+        this.nomeDaMae = Objects.requireNonNull(nomeDaMae, "O nome da mae nao pode ser nulo!");
         this.naturalidade = Objects.requireNonNull(naturalidade, "A naturalidade nao pode ser nula!");
         this.dataDeNascimento = Objects.requireNonNull(dataDeNascimento, "A data de nascimento nao pode ser nula!");
         this.nomeDoPai = Objects.requireNonNull(nomeDoPai, "O nome do pai nao pode ser nulo!");
