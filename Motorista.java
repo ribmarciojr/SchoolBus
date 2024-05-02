@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,7 +7,7 @@ import java.util.Set;
 public class Motorista extends PessoaFisica {
     private CNH cnh;
     private TipoDeContrato tipoDeContrato;
-    private Set<Contrato> contratos = new HashSet<>();;
+    private Set<Contrato> contratos;
 
     private Motorista(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
             String nomeDaMae, String naturalidade, LocalDate dataDeNascimento, String telefone, Endereco endereco,
@@ -28,6 +27,7 @@ public class Motorista extends PessoaFisica {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco,
                 numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.TERCEIRIZADO;
+        m.contratos = new HashSet<>();
         m.contratos.add(Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!"));
         return m;
     }
