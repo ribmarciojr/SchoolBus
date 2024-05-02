@@ -29,7 +29,7 @@ public class Escola {
     public void exibeAlunos() {
         alunos.forEach(aluno -> {
             System.out.format("Nome: %s - CPF: %s - Matricula: %s - Serie: %s\n",
-                    aluno.nomeSocial(), aluno.cpf(),
+                    aluno.getNomeSocial(), aluno.getCpf(),
                     aluno.matricula(), aluno.serie());
         });
     }

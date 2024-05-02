@@ -73,8 +73,7 @@ public class Contrato {
             if (!(fornecedor instanceof Fornecedor)) {
                 throw new IllegalStateException("Metodo invalido, o argumento precisa ser do tipo Fornecedor!");
             }
-            Fornecedor novoFornecedor = (Fornecedor) fornecedor;
-            this.fornecedor = novoFornecedor;
+            this.fornecedor = (Fornecedor) fornecedor;
     }
 
     public String getNumContrato(){

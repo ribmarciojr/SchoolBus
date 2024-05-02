@@ -14,6 +14,7 @@ public class Aluno extends PessoaFisica {
         this.pontoDeParada = Objects.requireNonNull(pontoDeParada, "O ponto de parada do aluno nao pode ser nulo");
     }
 
+
     public String matricula() {
         return dadosAcademicos.matricula();
     }

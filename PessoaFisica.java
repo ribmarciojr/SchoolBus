@@ -23,6 +23,8 @@ public abstract class PessoaFisica extends Pessoa{
 
     public String getNomeCivil() { return getNomeOficial();}
 
+    public String getNomeSocial() { return nomeSocial;}
+
     public String getCpf() { return getCpf_cnpj();}
 
 }
