@@ -79,4 +79,17 @@ public class Contrato {
     public String getNumContrato(){
         return this.numContrato;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contrato contrato = (Contrato) o;
+        return Objects.equals(numContrato, contrato.numContrato) && Objects.equals(inicio, contrato.inicio) && Objects.equals(fim, contrato.fim) && Objects.equals(valor, contrato.valor) && Objects.equals(fornecedor, contrato.fornecedor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numContrato, inicio, fim, valor, fornecedor);
+    }
 }
