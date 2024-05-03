@@ -24,8 +24,8 @@ public class Motorista extends PessoaFisica {
             String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
             String telefone, Endereco endereco, Contrato contrato,
             String numeroCNH, CategoriaCNH categoriaCNH) {
-        Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco,
-                numeroCNH, categoriaCNH);
+        Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone,
+                endereco, numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.TERCEIRIZADO;
         m.contratos = new HashSet<>();
         m.contratos.add(Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!"));
@@ -56,7 +56,6 @@ public class Motorista extends PessoaFisica {
         }
                  return contratos.add(contrato);
     }
-
 
     @Override
     public boolean equals(Object o) {
