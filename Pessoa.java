@@ -1,27 +1,24 @@
 import java.util.Objects;
 
 public abstract class Pessoa {
-    private String nomeCivil;
-    private String nomeSocial;
-    private String cpf;
-    private String nomeDoPai;
-    private String nomeDaMae;
-    private String naturalidade;
-    private String telefone;
-    private Endereco endereco;
+    private final String nomeOficial;
+    private final String cpf_cnpj;
+    private final String telefone;
+    private final Endereco endereco;
 
-    public Pessoa(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
-                  String nomeDaMae, String naturalidade, String telefone, Endereco endereco) {
-        this.nomeCivil = nomeCivil;
-        this.nomeSocial = nomeSocial;
-        if (Objects.isNull(nomeSocial) || nomeSocial.isBlank()) {
-            this.nomeSocial = nomeCivil;
-        }
-        this.cpf = cpf;
-        this.nomeDoPai = nomeDoPai;
-        this.nomeDaMae = nomeDaMae;
-        this.naturalidade = naturalidade;
-        this.telefone = telefone;
-        this.endereco = endereco;
+
+    public Pessoa(String nomeOficial, String cpf_cnpj, String telefone, Endereco endereco) {
+        this.nomeOficial = Objects.requireNonNull(nomeOficial, "O nome oficial nao pode ser nulo!");
+        this.cpf_cnpj = Objects.requireNonNull(cpf_cnpj, "O CPF ou CNPJ nao pode ser nulo!");
+        this.telefone = Objects.requireNonNull(telefone, "O telefone nao pode ser nulo!");
+        this.endereco = Objects.requireNonNull(endereco, "O endereco nao pode ser nulo!");
+    }
+
+    protected String getNomeOficial() {
+        return nomeOficial;
+    }
+
+    protected String getCpf_cnpj() {
+        return cpf_cnpj;
     }
 }
