@@ -24,4 +24,11 @@ public class PontoDeParada {
     }
 
     public int totalAlunos() {return alunos.size();}
+
+    public boolean adicionaAluno(Aluno aluno) {
+        if (Objects.isNull(aluno)) {
+            return false;
+        }
+        return this.alunos.add(aluno);
+    }
 }

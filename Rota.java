@@ -1,4 +1,5 @@
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Rota {
@@ -36,4 +37,12 @@ public class Rota {
         }
         return total;
     }
+
+    public boolean adicionaPontoDeParada(PontoDeParada pontoDeParada) {
+        if (Objects.isNull(pontoDeParada)) {
+            return false;
+        }
+        return this.pontosDeParada.add(pontoDeParada);
+    }
+
 }
