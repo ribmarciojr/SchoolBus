@@ -48,4 +48,15 @@ public class PontoDeParada {
     public int hashCode() {
         return Objects.hash(nome, latitude, longitude);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "nome = '" + nome + '\'' +
+                ", latitude = " + latitude +
+                ", longitude = " + longitude +
+                ", id = " + id +
+                ", alunos = " + alunos +
+                '}';
+    }
 }

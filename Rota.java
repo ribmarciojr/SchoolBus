@@ -49,4 +49,11 @@ public class Rota {
         return this.pontosDeParada.add(pontoDeParada);
     }
 
+    @Override
+    public String toString() {
+        return " {" +
+                "id = " + id +
+                ", pontos de parada = " + pontosDeParada +
+                '}';
+    }
 }

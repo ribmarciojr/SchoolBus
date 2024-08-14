@@ -16,7 +16,7 @@ public class LeituraDados {
         int action = sc.nextInt();
 
         switch (action){
-            case 1:
+            case 1://demanda de uma rota especifica
                 if(Rota.getTotalRotas() == 0){
                     System.out.println("Não há rotas para serem listadas!");
                 }

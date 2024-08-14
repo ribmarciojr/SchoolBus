@@ -125,7 +125,8 @@ public class Dados {
     }
 
     public void listarDemandaRota(int n){
-        rotas.get(n).demanda();
+        Rota r = rotas.get(n);
+        System.out.println("A demanda da rota " + r + " é: " + r.demanda());
     }
 
 }
