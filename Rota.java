@@ -45,4 +45,16 @@ public class Rota {
         return this.pontosDeParada.add(pontoDeParada);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rota rota = (Rota) o;
+        return this.pontosDeParada.equals(rota.pontosDeParada);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(pontosDeParada);
+    }
 }

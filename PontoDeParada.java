@@ -31,4 +31,17 @@ public class PontoDeParada {
         }
         return this.alunos.add(aluno);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PontoDeParada that = (PontoDeParada) o;
+        return Double.compare(latitude, that.latitude) == 0 && Double.compare(longitude, that.longitude) == 0 && Objects.equals(nome, that.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, latitude, longitude);
+    }
 }

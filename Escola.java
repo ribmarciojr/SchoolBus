@@ -23,4 +23,17 @@ public class Escola extends PessoaJuridica {
                     aluno.matricula(), aluno.serie());
         });
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Escola escola = (Escola) o;
+        return this.getCpf_cnpj().equals(escola.getCpf_cnpj());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.getCpf_cnpj());
+    }
 }

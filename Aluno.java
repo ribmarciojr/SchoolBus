@@ -22,4 +22,17 @@ public class Aluno extends PessoaFisica {
     public String serie() {
         return dadosAcademicos.serie();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aluno aluno = (Aluno) o;
+        return this.getCpf_cnpj().equals(aluno.getCpf_cnpj());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.getCpf_cnpj());
+    }
 }
