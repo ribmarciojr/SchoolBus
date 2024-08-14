@@ -24,6 +24,10 @@ public class Rota {
         System.out.println("Total de rotas: " + totalRotas);
     }
 
+    public static int getTotalRotas() {
+        return totalRotas;
+    }
+
     /**
      * @apiNote "Implemente um método na classe Rota para calcular a demanda total da rota com base na associação
      * dos alunos aos pontos de parada.
@@ -44,4 +48,5 @@ public class Rota {
         }
         return this.pontosDeParada.add(pontoDeParada);
     }
+
 }

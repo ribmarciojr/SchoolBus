@@ -32,6 +32,10 @@ public class PontoDeParada {
         return this.alunos.add(aluno);
     }
 
+    public boolean same(String nome, double latitude, double longitude) {
+        return this.nome.equals(nome) && this.latitude == latitude && this.longitude == longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
