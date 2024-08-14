@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
@@ -50,6 +52,63 @@ public class CadastroDados {
         return endereco;
     }
 
+    public Contrato novoContrato(){
+            sc.nextLine();
+            System.out.println("Digite o número do contrato");
+            String numContrato = sc.nextLine();
+            System.out.println("Digite a data de início");
+            LocalDate inicio = LocalDate.parse(sc.nextLine());
+            System.out.println("Digite a data de fim");
+            LocalDate fim = LocalDate.parse(sc.nextLine());
+            System.out.println("Digite o valor");
+            BigDecimal valor = sc.nextBigDecimal();
+
+            Contrato contrato = new Contrato(numContrato, inicio, fim, valor);
+
+            return contrato;
+    }
+    public Motorista novoMotorista(){
+            sc.nextLine();
+            System.out.println("Digite o nome civil do motorista");
+            String nomeCivil = sc.nextLine();
+            System.out.println("Digite o nome social do motorista");
+            String nomeSocial = sc.nextLine();
+            System.out.println("Digite o CPF");
+            String cpf = sc.nextLine();
+            System.out.println("Digite o telefone");
+            String telefoneMotorista = sc.nextLine();
+            System.out.println("Digite o nome do pai");
+            String nomeDoPai = sc.nextLine();
+            System.out.println("Digite o nome da mãe");
+            String nomeDaMae = sc.nextLine();
+            System.out.println("Digite a data de nascimento");
+            LocalDate dataNascimento = LocalDate.parse(sc.nextLine());
+            System.out.println("Digite a naturalidade");
+            String naturalidade = sc.nextLine();
+            Endereco endereco = novoEndereco();
+            System.out.println("Digite o número da CNH");
+            String numeroCNH = sc.nextLine();
+            System.out.println("Digite a categoria da CNH");
+            String categoriaCNH = sc.nextLine();
+            System.out.println("Digite o tipo de contrato");
+            String tipoContrato = sc.nextLine();
+
+            if (tipoContrato == "terceirizado"){
+                Contrato contrato = novoContrato();
+                Motorista motorista = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                return motorista;
+            }
+            else if (tipoContrato == "secretaria"){
+                Motorista motorista = Motorista.novoMotoristaSecretaria(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                return motorista;
+            }
+            else{
+                System.out.println("Tipo de contrato inválido");
+                return null;
+            }
+
+    }
+
     public Escola novaEscola(){
         sc.nextLine();
         System.out.println("Digite o nome da escola");
@@ -67,7 +126,7 @@ public class CadastroDados {
         Escola escola = new Escola(nome, cnpj, telefone, novoEndereco(), nomeFantasia, numeroDeFuncionarios);
 
         return escola;
-    };
+    }
 
     public void cadastro(){
         painel.mostrarCadastros();
@@ -75,12 +134,21 @@ public class CadastroDados {
 
         switch (action){
             case 1://aluno
+
                 break;
 
             case 2://motorista
+                Motorista motorista = novoMotorista();
+                if (dados.addMotorista(motorista)){
+                    System.out.println("Novo motorista cadastrado com sucesso.");
+                    break;
+                }else {
+                    System.out.println("Já existe um cadastro desse motorista no sistema!");
+                }
                 break;
 
             case 3://contrato
+
                 break;
 
             case 4://escola
@@ -90,11 +158,13 @@ public class CadastroDados {
                     System.out.println("Nova escola cadastrada com sucesso.");
                     break;
                 }
-            
-                System.out.println("Já existe um cadastro dessa escola no sistema!");
+                else {
+                    System.out.println("Já existe um cadastro dessa escola no sistema!");
+                }
                 break;
 
             case 5://veiculo
+
                 break;
 
             case 6://ponto de parada
@@ -127,9 +197,11 @@ public class CadastroDados {
                 break;
 
             case 8://fornecedor
+
                 break;
 
             case 9://menu anterior
+
                 break;
 
             default:
