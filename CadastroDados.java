@@ -53,73 +53,120 @@ public class CadastroDados {
     }
 
     public Contrato novoContrato(){
-            sc.nextLine();
-            System.out.println("Digite o número do contrato");
-            String numContrato = sc.nextLine();
-            System.out.println("Digite a data de início");
-            LocalDate inicio = LocalDate.parse(sc.nextLine());
-            System.out.println("Digite a data de fim");
-            LocalDate fim = LocalDate.parse(sc.nextLine());
-            System.out.println("Digite o valor");
-            BigDecimal valor = sc.nextBigDecimal();
+        sc.nextLine();
+        System.out.println("Digite o número do contrato");
+        String numContrato = sc.nextLine();
+        System.out.println("Digite a data de início");
+        LocalDate inicio = LocalDate.parse(sc.nextLine());
+        System.out.println("Digite a data de fim");
+        LocalDate fim = LocalDate.parse(sc.nextLine());
+        System.out.println("Digite o valor");
+        BigDecimal valor = sc.nextBigDecimal();
 
-            Contrato contrato = new Contrato(numContrato, inicio, fim, valor);
-            
-            return contrato;
+        Contrato contrato = new Contrato(numContrato, inicio, fim, valor);
+        
+        return contrato;
     }
     public Motorista novoMotorista(){
-            sc.nextLine();
-            System.out.println("Digite o nome civil do motorista");
-            String nomeCivil = sc.nextLine();
-            System.out.println("Digite o nome social do motorista");
-            String nomeSocial = sc.nextLine();
-            System.out.println("Digite o CPF");
-            String cpf = sc.nextLine();
-            System.out.println("Digite o telefone");
-            String telefoneMotorista = sc.nextLine();
-            System.out.println("Digite o nome do pai");
-            String nomeDoPai = sc.nextLine();
-            System.out.println("Digite o nome da mãe");
-            String nomeDaMae = sc.nextLine();
-            System.out.println("Digite a data de nascimento");
-            LocalDate dataNascimento = LocalDate.parse(sc.nextLine());
-            System.out.println("Digite a naturalidade");
-            String naturalidade = sc.nextLine();
-            Endereco endereco = novoEndereco();
-            System.out.println("Digite o número da CNH");
-            String numeroCNH = sc.nextLine();
-            System.out.println("Digite a categoria da CNH");
-            String categoriaCNH = sc.nextLine();
-            System.out.println("Digite o tipo de contrato");
-            String tipoContrato = sc.nextLine();
+        sc.nextLine();
+        System.out.println("Digite o nome civil do motorista");
+        String nomeCivil = sc.nextLine();
+        System.out.println("Digite o nome social do motorista");
+        String nomeSocial = sc.nextLine();
+        System.out.println("Digite o CPF");
+        String cpf = sc.nextLine();
+        System.out.println("Digite o telefone");
+        String telefoneMotorista = sc.nextLine();
+        System.out.println("Digite o nome do pai");
+        String nomeDoPai = sc.nextLine();
+        System.out.println("Digite o nome da mãe");
+        String nomeDaMae = sc.nextLine();
+        System.out.println("Digite a data de nascimento");
+        LocalDate dataNascimento = LocalDate.parse(sc.nextLine());
+        System.out.println("Digite a naturalidade");
+        String naturalidade = sc.nextLine();
+        Endereco endereco = novoEndereco();
+        System.out.println("Digite o número da CNH");
+        String numeroCNH = sc.nextLine();
+        System.out.println("Digite a categoria da CNH");
+        String categoriaCNH = sc.nextLine();
+        System.out.println("Digite o tipo de contrato");
+        String tipoContrato = sc.nextLine();
 
-            if (tipoContrato == "terceirizado"){
-                sc.nextLine();
-                System.out.println("Deseja cadastrar um novo contrato? (s/n)");
-                String resposta = sc.nextLine();
-                switch (resposta){
-                    case "s":
-                        Contrato contrato = novoContrato();
+        if (tipoContrato == "terceirizado"){
+            sc.nextLine();
+            System.out.println("Deseja cadastrar um novo contrato? (s/n)");
+            String resposta = sc.nextLine();
+            switch (resposta){
+                case "s":
+                    Contrato contrato = novoContrato();
                     Motorista motorista = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
                     contrato.associaMotorista(motorista);
                     return motorista;
-                    case "n":
-                        System.out.println("Digite o número do contrato");
-                        String numContrato = sc.nextLine();
-                        Contrato contrato1 = dados.findContrato(numContrato);
-                        Motorista motorista1 = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato1, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
-                        contrato1.associaMotorista(motorista1);
-                        return motorista1;
-            }
-            else if (tipoContrato == "secretaria"){
-                Motorista motorista = Motorista.novoMotoristaSecretaria(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
-                return motorista;
-            }
-            else{
-                System.out.println("Tipo de contrato inválido");
-                return null;
-            }
+                case "n":
+                    System.out.println("Digite o número do contrato");
+                    String numContrato = sc.nextLine();
+                    Contrato contrato1 = dados.findContrato(numContrato);
+                    if (contrato == null){
+                    System.out.println("Contrato não encontrado");
+                    break
+                }
+                    Motorista motorista1 = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato1, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                    contrato1.associaMotorista(motorista1);
+                    return motorista1;
+        }
+        else if (tipoContrato == "secretaria"){
+            Motorista motorista = Motorista.novoMotoristaSecretaria(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+            return motorista;
+        }
+        else{
+            System.out.println("Tipo de contrato inválido");
+            return null;
+        }
+    }
 
+    public Veiculo novoVeiculo(){
+        sc.nextLine();
+        System.out.println("Digite a placa do veículo");
+        String placa = sc.nextLine();
+        System.out.println("Digite o modelo do veículo");
+        String modelo = sc.nextLine();
+        System.out.println("Digite o ano do veículo");
+        int ano = sc.nextInt();
+        System.out.println("Digite a capacidade do veículo");
+        int capacidade = sc.nextInt();
+        System.out.println("Digite o tipo do veículo");
+        String tipo = sc.nextLine();
+        if (tipo == "alugado"){
+            sc.nextLine();
+            System.out.println("Deseja cadastrar um novo contrato de aluguel? (s/n)");
+            String resposta = sc.nextLine();
+            switch (resposta){
+                case "s":
+                    Contrato contrato = novoContrato();
+                    Veiculo veiculo = Veiculo.novoVeiculoAlugado(placa, Year.of(ano), modelo, capacidade, contrato);
+                    contrato.associaVeiculo(veiculo);
+                    return veiculo;
+                case "n":
+                    System.out.println("Digite o número do contrato");
+                    String numContrato = sc.nextLine();
+                    Contrato contrato = dados.findContrato(numContrato);
+                    if (contrato == null){
+                        System.out.println("Contrato não encontrado");
+                        return null;
+                    }
+                    Veiculo veiculo = Veiculo.novoVeiculoAlugado(placa, Year.of(ano), modelo, capacidade, contrato);
+                    contrato.associaVeiculo(veiculo);
+                    return veiculo;
+        }
+        else if tipo == "proprio"{
+            Veiculo veiculo = Veiculo.novoVeiculoProprio(placa, Year.of(ano), modelo, capacidade);
+            return veiculo;
+        }
+        else{
+            System.out.println("Tipo de veículo inválido");
+            return null;
+        }
     }
 
     public Escola novaEscola(){
@@ -184,7 +231,13 @@ public class CadastroDados {
                 break;
 
             case 5://veiculo
-
+                Veiculo veiculo = novoVeiculo();
+                if (dados.addVeiculo(veiculo)){
+                    System.out.println("Novo veículo cadastrado com sucesso.");
+                }
+                else{
+                    System.out.println("Já existe um cadastro desse veículo no sistema!");
+                }
                 break;
 
             case 6://ponto de parada
