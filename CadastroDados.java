@@ -94,10 +94,22 @@ public class CadastroDados {
             String tipoContrato = sc.nextLine();
 
             if (tipoContrato == "terceirizado"){
-                Contrato contrato = novoContrato();
-                Motorista motorista = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
-                contrato.associaMotorista(motorista);
-                return motorista;
+                sc.nextLine();
+                System.out.println("Deseja cadastrar um novo contrato? (s/n)");
+                String resposta = sc.nextLine();
+                switch (resposta){
+                    case "s":
+                        Contrato contrato = novoContrato();
+                    Motorista motorista = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                    contrato.associaMotorista(motorista);
+                    return motorista;
+                    case "n":
+                        System.out.println("Digite o número do contrato");
+                        String numContrato = sc.nextLine();
+                        Contrato contrato1 = dados.findContrato(numContrato);
+                        Motorista motorista1 = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato1, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                        contrato1.associaMotorista(motorista1);
+                        return motorista1;
             }
             else if (tipoContrato == "secretaria"){
                 Motorista motorista = Motorista.novoMotoristaSecretaria(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
@@ -149,7 +161,14 @@ public class CadastroDados {
                 break;
 
             case 3://contrato
-
+                Contrato contrato = novoContrato();
+                if(dados.addContrato(contrato)){
+                    System.out.println("Novo contrato cadastrado com sucesso.");
+                    break;
+                }
+                else {
+                    System.out.println("Já existe um cadastro desse contrato no sistema!");
+                }
                 break;
 
             case 4://escola
