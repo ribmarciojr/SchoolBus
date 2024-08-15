@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 public class Dados {
     private final Set<Fornecedor> fornecedores = new HashSet<>();
@@ -58,6 +58,15 @@ public class Dados {
                 if(contrato.equals(c1)){
                     return contrato;
                 }
+            }
+        }
+        return null;
+    }
+
+    public Contrato findContratoByNum(String numContrato ){
+        for(Contrato contrato : contratos){
+            if(contrato.getNumContrato().equals(numContrato)){
+                return contrato;
             }
         }
         return null;

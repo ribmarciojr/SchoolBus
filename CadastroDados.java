@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
@@ -106,16 +107,16 @@ public class CadastroDados {
                 case "n":
                     System.out.println("Digite o número do contrato");
                     String numContrato = sc.nextLine();
-                    Contrato contrato1 = dados.findContrato(numContrato);
-                    if (contrato == null){
+                    Contrato contrato1 = dados.findContratoByNum(numContrato);
+                    if (contrato1 == null){
                     System.out.println("Contrato não encontrado");
-                    break
+                    break;
                 }
                     Motorista motorista1 = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato1, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
                     contrato1.associaMotorista(motorista1);
                     return motorista1;
-        }
-        else if (tipoContrato == "secretaria"){
+            }
+        }else if (tipoContrato == "secretaria"){
             Motorista motorista = Motorista.novoMotoristaSecretaria(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
             return motorista;
         }
@@ -150,16 +151,15 @@ public class CadastroDados {
                 case "n":
                     System.out.println("Digite o número do contrato");
                     String numContrato = sc.nextLine();
-                    Contrato contrato = dados.findContrato(numContrato);
-                    if (contrato == null){
+                    Contrato contrato1 = dados.findContratoByNum(numContrato);
+                    if (contrato1 == null){
                         System.out.println("Contrato não encontrado");
                         return null;
                     }
-                    Veiculo veiculo = Veiculo.novoVeiculoAlugado(placa, Year.of(ano), modelo, capacidade, contrato);
-                    contrato.associaVeiculo(veiculo);
-                    return veiculo;
-        }
-        else if tipo == "proprio"{
+                    Veiculo veiculo1 = Veiculo.novoVeiculoAlugado(placa, Year.of(ano), modelo, capacidade, contrato1);
+                    contrato1.associaVeiculo(veiculo1);
+            }
+        }else if (tipo == "proprio"){
             Veiculo veiculo = Veiculo.novoVeiculoProprio(placa, Year.of(ano), modelo, capacidade);
             return veiculo;
         }
@@ -186,6 +186,25 @@ public class CadastroDados {
         Escola escola = new Escola(nome, cnpj, telefone, novoEndereco(), nomeFantasia, numeroDeFuncionarios);
 
         return escola;
+    }
+
+    public Fornecedor novoFornecedor(){
+        sc.nextLine();
+        System.out.println("Digite o nome ofivial do fornecedor");
+        String nome = sc.nextLine();
+        System.out.println("Digite o CNPJ");
+        String cnpj = sc.nextLine();
+        System.out.println("Digite o telefone");
+        String telefone = sc.nextLine();
+        System.out.println("Digite o nome fantasia");
+        String nomeFantasia = sc.nextLine();
+        System.out.println("Digite o numero de funcionarios");
+        int numFuncionario = sc.nextInt();
+        Endereco endereco = novoEndereco();
+
+        Fornecedor fornecedor = new Fornecedor(nome, cnpj, telefone, endereco, nomeFantasia, numFuncionario);
+
+        return fornecedor;
     }
 
     public void cadastro(){
@@ -270,6 +289,13 @@ public class CadastroDados {
                 break;
 
             case 8://fornecedor
+                Fornecedor fornecedor = novoFornecedor();
+                if(dados.addFornecedor(fornecedor)){
+                    System.out.println("Novo fornecedor cadastrado com sucesso.");
+                }
+                else{
+                    System.out.println("Já existe um cadastro desse fornecedor no sistema!");
+                }
 
                 break;
 
