@@ -124,6 +124,7 @@ public class CadastroDados {
             System.out.println("Tipo de contrato inválido");
             return null;
         }
+        return null;
     }
 
     public Veiculo novoVeiculo(){
@@ -167,6 +168,7 @@ public class CadastroDados {
             System.out.println("Tipo de veículo inválido");
             return null;
         }
+        return null;
     }
 
     public Escola novaEscola(){
