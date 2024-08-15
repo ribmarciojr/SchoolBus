@@ -64,7 +64,7 @@ public class CadastroDados {
             BigDecimal valor = sc.nextBigDecimal();
 
             Contrato contrato = new Contrato(numContrato, inicio, fim, valor);
-
+            
             return contrato;
     }
     public Motorista novoMotorista(){
@@ -96,6 +96,7 @@ public class CadastroDados {
             if (tipoContrato == "terceirizado"){
                 Contrato contrato = novoContrato();
                 Motorista motorista = Motorista.novoMotoristaTerceirizado(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataNascimento, telefoneMotorista, endereco, contrato, numeroCNH, CategoriaCNH.valueOf(categoriaCNH));
+                contrato.associaMotorista(motorista);
                 return motorista;
             }
             else if (tipoContrato == "secretaria"){
