@@ -1,27 +1,40 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Contrato {
-    private final String numContrato;
-    private final LocalDate inicio;
-    private final LocalDate fim;
-    private final BigDecimal valor;
+    @InputUsuario(prompt = "Digite o numero do contrato: ")
+    private String numContrato;
+    @InputUsuario(prompt = "Digite a data de inicio do contrato: ")
+    private LocalDate inicio;
+    @InputUsuario(prompt = "Digite a data de fim do contrato: ")
+    private LocalDate fim;
+    @InputUsuario(prompt = "Digite o valor do contrato: ")
+    private BigDecimal valor;
     private Fornecedor fornecedor;
 
-    private Set<Veiculo> veiculosAssociados = new HashSet<>();
-    private Set<Motorista> motoristasAssociados = new HashSet<>();
+    private final Set<Veiculo> veiculosAssociados = new HashSet<>();
+    private final Set<Motorista> motoristasAssociados = new HashSet<>();
+
+    public Contrato() {
+    }
 
     public Contrato(String numContrato, LocalDate inicio, LocalDate fim, BigDecimal valor) {
-        this.numContrato = Objects.requireNonNull(numContrato, "Numero do contrato nao pode ser nulo!");
-        this.inicio = Objects.requireNonNull(inicio, "Data de inicio nao pode ser nula!");
-        this.fim = Objects.requireNonNull(fim, "Data de fim nao pode ser nula!");
-        this.valor = Objects.requireNonNull(valor, "Valor nao pode ser nulo!");
+        this.numContrato = numContrato;
+        this.inicio = inicio;
+        this.fim = fim;
+        this.valor = valor;
     }
 
     /**
-     * @apiNote "Na classe Contrato, implemente os metodos para adicionar e remover veiculos associados
+     * @apiNote "Na classe schoolbus.Contrato, implemente os metodos para adicionar e remover veiculos associados
      * ao contrato utilizando ArrayList. Apenas veiculos alugados podem ser adicionados ao contrato."
      * @see #removeVeiculo(Veiculo)
      */
@@ -33,7 +46,7 @@ public class Contrato {
     }
 
     /**
-     * @apiNote "Na classe Contrato, implemente os metodos para adicionar e remover veiculos associados
+     * @apiNote "Na classe schoolbus.Contrato, implemente os metodos para adicionar e remover veiculos associados
      * ao contrato utilizando ArrayList. Apenas veiculos alugados podem ser adicionados ao contrato."
      * @see #associaVeiculo(Veiculo)
      */
@@ -42,7 +55,7 @@ public class Contrato {
     }
 
     /**
-     * @apiNote "Na classe Contrato, implemente os metodos para adicionar e remover motoristas
+     * @apiNote "Na classe schoolbus.Contrato, implemente os metodos para adicionar e remover motoristas
      * associados ao contrato utilizando ArrayList. Apenas motoristas terceirizados podem ser adicionados ao contrato.
      * @see #removeMotorista(Motorista)
      */
@@ -54,7 +67,7 @@ public class Contrato {
     }
 
     /**
-     * @apiNote "Na classe Contrato, implemente os metodos para adicionar e remover motoristas
+     * @apiNote "Na classe schoolbus.Contrato, implemente os metodos para adicionar e remover motoristas
      * associados ao contrato utilizando ArrayList. Apenas motoristas terceirizados podem ser adicionados ao contrato.
      * @see #associaMotorista(Motorista)
      */
@@ -63,20 +76,20 @@ public class Contrato {
     }
 
     /**
-     * @apiNote "Implemente um metodo polimorfico na classe Contrato para adicionar um Fornecedor ao contrato.
-     * Este metodo deve ser capaz de aceitar qualquer objeto que herda de PessoaJuridica, contudo so deve ser possivel
-     * criar contratos com o tipo Fornecedor. Caso a PJ seja diferente de Fornecedor o sistema deve
+     * @apiNote "Implemente um metodo polimorfico na classe schoolbus.Contrato para adicionar um schoolbus.Fornecedor ao contrato.
+     * Este metodo deve ser capaz de aceitar qualquer objeto que herda de schoolbus.PessoaJuridica, contudo so deve ser possivel
+     * criar contratos com o tipo schoolbus.Fornecedor. Caso a PJ seja diferente de schoolbus.Fornecedor o sistema deve
      * emitir uma mensagem de erro."
      */
 
     public void adicionaFornecedor(PessoaJuridica fornecedor) throws IOException {
-            if (!(fornecedor instanceof Fornecedor)) {
-                throw new IllegalStateException("Metodo invalido, o argumento precisa ser do tipo Fornecedor!");
-            }
-            this.fornecedor = (Fornecedor) fornecedor;
+        if (!(fornecedor instanceof Fornecedor)) {
+            throw new IllegalStateException("Metodo invalido, o argumento precisa ser do tipo schoolbus.Fornecedor!");
+        }
+        this.fornecedor = (Fornecedor) fornecedor;
     }
 
-    public String getNumContrato(){
+    public String getNumContrato() {
         return this.numContrato;
     }
 

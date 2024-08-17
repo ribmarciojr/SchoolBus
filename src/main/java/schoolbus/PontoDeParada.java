@@ -1,29 +1,41 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class PontoDeParada {
-    private final String nome;
-    private final double latitude;
-    private final double longitude;
-    private final int id;
+    @InputUsuario(prompt = "Digite o nome do ponto de parada: ")
+    private String nome;
+    @InputUsuario(prompt = "Digite a latitude do ponto de parada: ")
+    private double latitude;
+    @InputUsuario(prompt = "Digite a longitude do ponto de parada: ")
+    private double longitude;
+    private int id;
 
     private final Set<Aluno> alunos = new HashSet<>();
 
     private static int totalPontos = 0;
 
+    public PontoDeParada() {
+    }
+
     public PontoDeParada(String nome, double latitude, double longitude) {
-        this.nome = Objects.requireNonNull(nome, "O nome do ponto de parada nao pode ser nulo");
+        this.nome = nome;
         this.latitude = latitude;
         this.longitude = longitude;
         this.id = totalPontos++;
     }
 
-    public static void exibeTotalPontos(){
-        System.out.println("Total de pontos: "+totalPontos);
+    public static void exibeTotalPontos() {
+        System.out.println("Total de pontos: " + totalPontos);
     }
 
-    public int totalAlunos() {return alunos.size();}
+    public int totalAlunos() {
+        return alunos.size();
+    }
 
     public boolean adicionaAluno(Aluno aluno) {
         if (Objects.isNull(aluno)) {

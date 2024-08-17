@@ -1,12 +1,24 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-public abstract class PessoaFisica extends Pessoa{
+public abstract class PessoaFisica extends Pessoa {
+    @InputUsuario(prompt = "Digite o nome social: ")
     private String nomeSocial;
-    private final String nomeDoPai;
-    private final String nomeDaMae;
-    private final String naturalidade;
-    private final LocalDate dataDeNascimento;
+    @InputUsuario(prompt = "Digite o nome do pai: ")
+    private String nomeDoPai;
+    @InputUsuario(prompt = "Digite o nome da mae: ")
+    private String nomeDaMae;
+    @InputUsuario(prompt = "Digite a naturalidade: ")
+    private String naturalidade;
+    @InputUsuario(prompt = "Digite a data de nascimento: ")
+    private LocalDate dataDeNascimento;
+
+    public PessoaFisica() {
+    }
 
     public PessoaFisica(String nomeOficial, String nomeSocial, String cpf, String nomeDoPai, String nomeDaMae,
                         String naturalidade, LocalDate dataDeNascimento, String telefone, Endereco endereco) {
@@ -21,10 +33,15 @@ public abstract class PessoaFisica extends Pessoa{
         this.nomeDoPai = Objects.requireNonNull(nomeDoPai, "O nome do pai nao pode ser nulo!");
     }
 
-    public String getNomeCivil() { return getNomeOficial();}
+    public String getNomeCivil() {
+        return getNomeOficial();
+    }
 
-    public String getNomeSocial() { return nomeSocial;}
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
 
-    public String getCpf() { return getCpf_cnpj();}
-
+    public String getCpf() {
+        return getCpf_cnpj();
+    }
 }

@@ -1,3 +1,7 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -6,35 +10,39 @@ import java.util.Set;
 
 public class Motorista extends PessoaFisica {
     private CNH cnh;
+    @InputUsuario(prompt = "Digite o tipo de contrato (TERCEIRIZADO, SECRETARIA): ")
     private TipoDeContrato tipoDeContrato;
     private Set<Contrato> contratos;
 
+    public Motorista() {
+    }
+
     private Motorista(String nomeCivil, String nomeSocial, String cpf, String nomeDoPai,
-            String nomeDaMae, String naturalidade, LocalDate dataDeNascimento, String telefone, Endereco endereco,
-            String numeroCNH, CategoriaCNH categoriaCNH) {
+                      String nomeDaMae, String naturalidade, LocalDate dataDeNascimento, String telefone, Endereco endereco,
+                      String numeroCNH, CategoriaCNH categoriaCNH) {
         super(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco);
         this.cnh = new CNH(numeroCNH, categoriaCNH);
     }
 
     /**
      * @apiNote "Em sendo terceirizado, o motorista também deve estar ligado a um
-     *          contrato."
+     * contrato."
      */
     public static Motorista novoMotoristaTerceirizado(String nomeCivil, String nomeSocial, String cpf,
-            String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
-            String telefone, Endereco endereco, Contrato contrato,
-            String numeroCNH, CategoriaCNH categoriaCNH) {
+                                                      String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
+                                                      String telefone, Endereco endereco, Contrato contrato,
+                                                      String numeroCNH, CategoriaCNH categoriaCNH) {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone,
                 endereco, numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.TERCEIRIZADO;
         m.contratos = new HashSet<>();
-        m.contratos.add(Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!"));
+        m.contratos.add(Objects.requireNonNull(contrato, "schoolbus.Contrato nao pode ser nulo!"));
         return m;
     }
 
     public static Motorista novoMotoristaSecretaria(String nomeCivil, String nomeSocial, String cpf,
-            String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
-            String telefone, Endereco endereco, String numeroCNH, CategoriaCNH categoriaCNH) {
+                                                    String nomeDoPai, String nomeDaMae, String naturalidade, LocalDate dataDeNascimento,
+                                                    String telefone, Endereco endereco, String numeroCNH, CategoriaCNH categoriaCNH) {
         Motorista m = new Motorista(nomeCivil, nomeSocial, cpf, nomeDoPai, nomeDaMae, naturalidade, dataDeNascimento, telefone, endereco,
                 numeroCNH, categoriaCNH);
         m.tipoDeContrato = TipoDeContrato.SECRETARIA;
@@ -43,7 +51,7 @@ public class Motorista extends PessoaFisica {
 
     /**
      * @apiNote "Escreva um método que verifique se o motorista é servidor ou
-     *          terceirizado."
+     * terceirizado."
      */
     public TipoDeContrato contrato() {
         return tipoDeContrato;
@@ -51,10 +59,10 @@ public class Motorista extends PessoaFisica {
 
     public boolean addContrato(Contrato contrato) throws IOException {
         if (tipoDeContrato == TipoDeContrato.SECRETARIA) {
-                     throw new IllegalArgumentException(
-                             "Metodo invalido: o motorista deve ser terceirizado para ser associado a um contrato!");
+            throw new IllegalArgumentException(
+                    "Metodo invalido: o motorista deve ser terceirizado para ser associado a um contrato!");
         }
-                 return contratos.add(contrato);
+        return contratos.add(contrato);
     }
 
     @Override

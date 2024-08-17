@@ -1,7 +1,13 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.util.Objects;
 
 public class DadosAcademicos {
+    @InputUsuario(prompt = "Digite a matricula: ")
     private String matricula;
+    @InputUsuario(prompt = "Digite a serie: ")
     private String serie;
     private Escola escola;
     private Turno turno;

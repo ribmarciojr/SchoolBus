@@ -1,14 +1,26 @@
+package schoolbus;
+
+import schoolbus.compartilhado.InputUsuario;
+
 import java.io.IOException;
 import java.time.Year;
 import java.util.Objects;
 
 public class Veiculo {
-    private final String placa;
-    private final Year ano;
-    private final String modelo;
-    private final int capacidade;
+    @InputUsuario(prompt = "Digite a placa do veiculo: ")
+    private String placa;
+    @InputUsuario(prompt = "Digite o ano do veiculo: ")
+    private Year ano;
+    @InputUsuario(prompt = "Digite o modelo do veiculo: ")
+    private String modelo;
+    @InputUsuario(prompt = "Digite a capacidade do veiculo: ")
+    private int capacidade;
     private Contrato contrato;
+    @InputUsuario(prompt = "Digite o tipo do veiculo (PROPRIO ou ALUGADO): ")
     private TipoVeiculo tipo;
+
+    public Veiculo() {
+    }
 
     private Veiculo(String placa, Year ano, String modelo, int capacidade) {
         this.placa = Objects.requireNonNull(placa, "Placa nao pode ser nula!");
@@ -19,7 +31,7 @@ public class Veiculo {
 
     public static Veiculo novoVeiculoAlugado(String placa, Year ano, String modelo, int capacidade, Contrato contrato) {
         Veiculo veiculo = new Veiculo(placa, ano, modelo, capacidade);
-        veiculo.contrato = Objects.requireNonNull(contrato, "Contrato nao pode ser nulo!");
+        veiculo.contrato = Objects.requireNonNull(contrato, "schoolbus.Contrato nao pode ser nulo!");
         veiculo.tipo = TipoVeiculo.ALUGADO;
         return veiculo;
     }
