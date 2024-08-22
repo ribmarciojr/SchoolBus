@@ -80,6 +80,8 @@ public class Contrato {
         return this.numContrato;
     }
 
+    public Fornecedor getFornecedor() { return this.fornecedor; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,5 +93,15 @@ public class Contrato {
     @Override
     public int hashCode() {
         return Objects.hash(numContrato, inicio, fim, valor, fornecedor);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "numContrato='" + numContrato + '\'' +
+                ", inicio=" + inicio +
+                ", fim=" + fim +
+                ", valor=" + valor +
+                '}';
     }
 }

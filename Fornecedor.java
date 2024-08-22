@@ -9,6 +9,9 @@ public class Fornecedor extends PessoaJuridica {
         super(nomeOficial, cpf_cnpj, telefone, endereco, nomeFantasia, numeroDeFuncionarios);
     }
 
+    public void adicionarContrato(Contrato contrato) {
+        contratos.add(contrato);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -20,5 +23,14 @@ public class Fornecedor extends PessoaJuridica {
     @Override
     public int hashCode() {
         return Objects.hashCode(this.getCpf_cnpj());
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " nome Oficial = " + getNomeOficial() +
+                ", CNPJ = " + getCNPJ() +
+                ", contratos associados = " + contratos +
+                '}';
     }
 }

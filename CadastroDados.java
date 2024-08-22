@@ -1,6 +1,8 @@
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
@@ -57,10 +59,18 @@ public class CadastroDados {
         sc.nextLine();
         System.out.println("Digite o número do contrato");
         String numContrato = sc.nextLine();
-        System.out.println("Digite a data de início");
-        LocalDate inicio = LocalDate.parse(sc.nextLine());
-        System.out.println("Digite a data de fim");
-        LocalDate fim = LocalDate.parse(sc.nextLine());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.println("Digite a data de início no formato dd/MM/yyyy");
+        String dataInicio = sc.nextLine();
+        LocalDate inicio = LocalDate.parse(dataInicio, formatter);
+
+
+        System.out.println("Digite a data de fim no formato dd/MM/yyyy");
+        String dataFim = sc.nextLine();
+        LocalDate fim = LocalDate.parse(dataFim, formatter);
+
         System.out.println("Digite o valor");
         BigDecimal valor = sc.nextBigDecimal();
 
@@ -192,7 +202,7 @@ public class CadastroDados {
 
     public Fornecedor novoFornecedor(){
         sc.nextLine();
-        System.out.println("Digite o nome ofivial do fornecedor");
+        System.out.println("Digite o nome oficial do fornecedor");
         String nome = sc.nextLine();
         System.out.println("Digite o CNPJ");
         String cnpj = sc.nextLine();
@@ -207,6 +217,18 @@ public class CadastroDados {
         Fornecedor fornecedor = new Fornecedor(nome, cnpj, telefone, endereco, nomeFantasia, numFuncionario);
 
         return fornecedor;
+    }
+
+    public Fornecedor cadastraFornecedor(){
+        Fornecedor fornecedor = novoFornecedor();
+        if(dados.addFornecedor(fornecedor)){
+            System.out.println("Novo fornecedor cadastrado com sucesso.");
+            return fornecedor;
+        }
+        else{
+            System.out.println("Já existe um cadastro desse fornecedor no sistema!");
+            return null;
+        }
     }
 
     public void cadastro(){
@@ -291,17 +313,57 @@ public class CadastroDados {
                 break;
 
             case 8://fornecedor
-                Fornecedor fornecedor = novoFornecedor();
-                if(dados.addFornecedor(fornecedor)){
-                    System.out.println("Novo fornecedor cadastrado com sucesso.");
+                cadastraFornecedor();
+                break;
+
+            case 9://Contrato associado a um fornecedor
+
+                //seleciona ou cadastra o fornecedor
+                Fornecedor f1;
+                if(dados.totalFornecedores() == 0){
+                    System.out.println("Não há fornecedores para serem listados!");
+                    System.out.println("Digite 1 para registrar novo fornecedor ou qualquer outro numero para voltar ao menu anterior");
+                    int op = sc.nextInt();
+                    if(op != 1){ break; }
+                    f1 = cadastraFornecedor();
                 }
                 else{
-                    System.out.println("Já existe um cadastro desse fornecedor no sistema!");
+                    System.out.println("Digite o número do fornecedor que deseja vincular ao contrato:");
+                    dados.listarFornecedores();
+                    int k = sc.nextInt();
+                    if(k < 1 || k > dados.totalFornecedores()){
+                        painel.opcaoInvalida();
+                        break;
+                    }
+                    f1 = dados.getFornecedor(k);
                 }
+
+                //cria novo contrato
+                Contrato c = novoContrato();
+
+                //adiciona fornecedor ao contrato
+                try {
+                    c.adicionaFornecedor(f1);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                //verifica se contrato já existe
+                Contrato c1 = dados.findContrato(c);
+                if(!(c1 == null)){
+                    System.out.println("O contrato já existe no sistema e já está associado a esse Fornecedor!");
+                        break;
+                }
+
+                //vincula contrato ao fornecedor e adiciona contrato ao hashset em dados
+                System.out.println("Novo contrato cadastrado com sucesso.");
+                f1.adicionarContrato(c);
+                System.out.println("Fornecedor e contrato vinculados com sucesso!");
+                dados.addContrato(c);
 
                 break;
 
-            case 9://menu anterior
+            case 10://menu anterior
 
                 break;
 

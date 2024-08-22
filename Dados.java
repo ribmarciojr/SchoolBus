@@ -133,6 +133,29 @@ public class Dados {
         }
     }
 
+    public void listarFornecedores(){
+        int i = 1;
+        for (Fornecedor fornecedor : fornecedores) {
+            System.out.println("Fornecedor " + i + ": " + fornecedor);
+            ++i;
+        }
+    }
+
+    public int totalFornecedores(){
+        return fornecedores.size();
+    }
+
+    public Fornecedor getFornecedor(int n){
+        Fornecedor f;
+        for(Fornecedor fornecedor : fornecedores){
+            n = n-1;
+            if(n == 0){
+                return fornecedor;
+            }
+        }
+        return null;
+    }
+
     public void listarDemandaRota(int n){
         Rota r = rotas.get(n);
         System.out.println("A demanda da rota " + r + " é: " + r.demanda());
