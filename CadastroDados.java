@@ -92,8 +92,10 @@ public class CadastroDados {
         String nomeDoPai = sc.nextLine();
         System.out.println("Digite o nome da mãe");
         String nomeDaMae = sc.nextLine();
-        System.out.println("Digite a data de nascimento");
-        LocalDate dataNascimento = LocalDate.parse(sc.nextLine());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println("Digite a data de data de nascimento no formato dd/MM/yyyy");
+        String dataInicio = sc.nextLine();
+        LocalDate dataNascimento = LocalDate.parse(dataInicio, formatter);
         System.out.println("Digite a naturalidade");
         String naturalidade = sc.nextLine();
         Endereco endereco = novoEndereco();
@@ -219,6 +221,44 @@ public class CadastroDados {
         return fornecedor;
     }
 
+    public Aluno novoAluno(){
+        sc.nextLine();
+        System.out.println("Digite o nome civil do aluno");
+        String nomeCivil = sc.nextLine();
+        System.out.println("Digite o nome social do aluno");
+        String nomeSocial = sc.nextLine();
+        System.out.println("Digite o CPF");
+        String cpf = sc.nextLine();
+        System.out.println("Digite o telefone");
+        String telefone = sc.nextLine();
+        System.out.println("Digite o nome do pai");
+        String nomeDoPai = sc.nextLine();
+        System.out.println("Digite o nome da mãe");
+        String nomeDaMae = sc.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println("Digite a data de data de nascimento no formato dd/MM/yyyy");
+        String dataInicio = sc.nextLine();
+        LocalDate dataNascimento = LocalDate.parse(dataInicio, formatter);
+        System.out.println("Digite a naturalidade");
+        String naturalidade = sc.nextLine();
+        Endereco endereco = novoEndereco();
+        Escola escola = novaEscola();
+        System.out.println("Digite a matricula");
+        String matricula = sc.nextLine();
+        System.out.println("Digite o turno(MATUTINO," +
+                "    VESPERTINO," +
+                "    NOTURNO ou" +
+                "    INTEGRAL)");
+        String turno = sc.nextLine();
+        Turno turno1 = Turno.valueOf(turno);
+        System.out.println("Digite a serie");
+        String serie = sc.nextLine();
+        PontoDeParada ponto = novoPontoDeParada();
+        Aluno aluno = new Aluno(nomeCivil,nomeSocial,cpf,nomeDoPai,nomeDaMae,naturalidade,telefone,endereco,
+                dataNascimento,matricula,serie,escola,turno1,ponto);
+        return aluno;
+    }
+
     public Fornecedor cadastraFornecedor(){
         Fornecedor fornecedor = novoFornecedor();
         if(dados.addFornecedor(fornecedor)){
@@ -237,7 +277,16 @@ public class CadastroDados {
 
         switch (action){
             case 1://aluno
-
+                Aluno aluno = novoAluno();
+                if (dados.addAluno(aluno)){
+                    System.out.println("Novo aluno cadastrado com sucesso.");
+                    PontoDeParada p1 = aluno.getPontoDeParada();
+                    p1.adicionaAluno(aluno);
+                    dados.addPontoDeParada(p1);
+                    break;
+                }else {
+                    System.out.println("Já existe um cadastro desse aluno no sistema!");
+                }
                 break;
 
             case 2://motorista

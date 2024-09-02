@@ -23,6 +23,10 @@ public class Aluno extends PessoaFisica {
         return dadosAcademicos.serie();
     }
 
+    public PontoDeParada getPontoDeParada() {
+        return pontoDeParada;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
